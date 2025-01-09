@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>	
+	<meta charset="utf-8">
+	<title>Hash Map</title>
+	<script src="hashMap.js" defer></script>
+	<script src="hashSet.js" defer></script>
+</head>
+<body>
+Check the browser console!
+<br>
+let [NAME] = new HashMap(loadFactor, capacity) to create a hash map.
+<br>
+let [NAME] = new HashSet(loadFactor, capacity) to create a hash set.
+<br>
+<br>
+A hash map is a data structure consisting of "buckets" which hold key-value pairs. The hash map implemented on this page is an array, and the buckets it contains are JavaScript objects. The map can hold a maximum number of key-value pairs equal to its capacity. When a key-value pair is added to the hash map, the key is "hashed" according to the map's hash function. In this implementation, this produces a number between 0 and the capacity, let's say X, and this is referred to as a hash code. We then look to the bucket corresponding to X (the index X in the array) and insert the key-value pair into that bucket.
+<br>
+<br>
+A hash set is identical to a hash map with the exception that keys do not have associated values.
+<br>
+<br>
+Hash codes are not unique to keys, that is, more than one key could produce the same hash code when passed in to the hash function. When this occurs and we end up with more than one key in a bucket, it's referred to as a "collision." We want to avoid these as much as possible, but we can't avoid them completely (unless we have collision checking in our logic, which this project does not). One way to avoid collisions is to rehash our hash map. When the keys stored in a hash map/set exceed a certain threshold (equal to capacity * loadFactor), the hash map/set will rehash itself. Its capacity will be doubled, and all keys will be hashed again and set with their new hash codes. The hash code will vary depending on the capacity, so we get new hash codes upon rehashing. Likewise, when the keys stored drops below a certain threshold (equal to (capacity/2) * loadFactor) the map will halve its capacity and rehash its keys. This process is done so we have a compromise between the number of empty buckets in the map, and the chances of getting a collision when we set a new key. Note that we will never rehash if rehashing would drop us below the initial capacity specified upon creation of the hash map.
+<br>
+<br>
+For example, say I let H = new HashMap(16, 0.75). I then populate H with 12 key-value pairs. Note that capacity * loadFactor = 16 * 0.75 = 12. Once we add one more key, we automatically rehash, doubling the capacity to 32. We get new hash codes for all our keys, which should be spread evenly across the 32 buckets.
+<br>
+<br>
+<br>
+Methods available:
+<ul>
+<li>HashMap.set(key, value) will add the provided key-value pair to the hash map. If the key already exists in the hash map, it will change its associated value to the new given value. set(key) performs the same function for a hash set.</li>
+<li>HashMap.get(key) will retrieve the value associated with the key. If the key doesn't exist, this will return null. There is no get method for hash sets as keys do not have values.</li>
+<li>HashMap.has(key) will return true if the key exists in the hash map and false otherwise. This method works identically in hash sets.</li>
+<li>HashMap.remove(key) will remove the key from the hash map/set and return true. If the key doesn't exist, this method will return false and do nothing else.</li>
+<li>HashMap.length() returns the total number of keys stored.</li>
+<li>HashMap.clear() clears all information from the hash map/set and returns it to its initial state.</li>
+<li>HashMap.keys() returns an array containing all keys in the hash map/set.</li>
+<li>HashMap.values() returns an array containing all values in the hash map. Hash sets do not have this method.</li>
+<li>HashMap.entries() returns an array containing all the key-value pairs in the hash map. Hash sets do not have this method.</li>
+</body>
+</html>
